@@ -1,0 +1,10 @@
+.header{
+    background-color: #1C2B35;
+}
+body{
+    margin: 0;
+}
+.header a{
+    margin-right: 30px;
+    color: aliceblue;
+}
