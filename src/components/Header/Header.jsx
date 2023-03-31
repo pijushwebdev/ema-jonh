@@ -13,9 +13,6 @@ const Header = () => {
                 <a href="#">Manage Inventory</a>
                 <a href="#">Login</a>
             </div>
-            
-
-        
         </nav>
     );
 };
