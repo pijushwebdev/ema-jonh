@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './shop.css';
-import { addToDb, getShoppingCart } from '../../utilities/fakedb';
+import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fakedb';
+import { Link } from 'react-router-dom';
 
 const Shop = () => {
     const [products, setProduct] = useState([]);
@@ -30,13 +31,19 @@ const Shop = () => {
         }
         setCart(savedCart);
 
-    }, [products])
+    }, [products]);
+    
     const handleAddToCart = (product) => {
         const newCart = [...cart,product];
 
         
         setCart(newCart);
         addToDb(product.id)
+    }
+
+    const handleClearCart = () => {
+        setCart([]);
+        deleteShoppingCart();
     }
     return (
         <div className='shop-container grid grid-cols-1 lg:grid-cols-5'>
@@ -50,7 +57,14 @@ const Shop = () => {
                 }
             </div>
             <div className='cart-container col-span-1'>
-                <Cart cart={cart}></Cart>
+                <Cart 
+                cart={cart}
+                handleClearCart={handleClearCart}
+                >
+                    <Link to={'/orders'}>
+                        <button>Review Order</button>
+                    </Link>
+                </Cart>
             </div>
         </div>
     );

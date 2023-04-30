@@ -13,7 +13,8 @@ const cartProductsLoader = async () => {
             if(savedProducts){
                 const quantity = storedCart[id];
             savedProducts.quantity = quantity;
-            savedCart.push(savedProducts)
+            savedCart.push(savedProducts);
+            
             }
         }
         return savedCart;

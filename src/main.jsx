@@ -7,6 +7,12 @@ import Shop from './components/Shop/Shop'
 import Orders from './components/Orders/Orders'
 import Inventory from './components/Inventory/Inventory'
 import cartProductsLoader from './loaders/cartProductsLoader'
+import Checkout from './components/Checkout/Checkout'
+import AuthProvider from './components/providers/AuthProvider'
+import Login from './components/Login/Login'
+import SignUp from './components/SignUp/SignUp'
+import PrivateRoute from './routes/PrivateRoute'
+
 
 
 const router = createBrowserRouter([
@@ -15,22 +21,34 @@ const router = createBrowserRouter([
     element: <App></App>,
     children: [
       {
-        path:'/',
+        path: '/',
         element: <Shop></Shop>
+      },
+      {
+        path:'/login',
+        element:<Login></Login>
+      },
+      {
+        path:'sign-up',
+        element: <SignUp></SignUp>
       },
       {
         path: 'orders',
         element: <Orders></Orders>,
         // loader: () => fetch('products.json'),
         loader: cartProductsLoader
-        
+
       },
       {
-        path:'inventory',
-        element: <Inventory></Inventory>
+        path: 'inventory',
+        element: <PrivateRoute><Inventory></Inventory></PrivateRoute>
       },
       {
-        path:'*',
+        path: 'checkout',
+        element: <PrivateRoute><Checkout></Checkout></PrivateRoute>
+      },
+      {
+        path: '*',
         element: <div>Not Found The Page</div>
       }
     ]
@@ -39,6 +57,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
+    <AuthProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </AuthProvider>
   </React.StrictMode>,
 )
